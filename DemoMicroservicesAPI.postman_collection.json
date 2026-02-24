@@ -1,0 +1,755 @@
+{
+  "info": {
+    "_postman_id": "afa5e24a-8967-49d1-b824-dcd0bf841dea",
+    "name": "Bank Microservices API",
+    "description": "Colección de pruebas para ms-clients (8081) y ms-accounts (8082)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "28584036"
+  },
+  "item": [
+    {
+      "name": "ms-clients",
+      "item": [
+        {
+          "name": "01 - Create Client Jose Lema",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jose Lema\",\n  \"gender\": \"Masculino\",\n  \"age\": 35,\n  \"identification\": \"1001234567\",\n  \"address\": \"Otavalo sn y director\",\n  \"phone\": \"098254785\",\n  \"clientId\": \"joselema\",\n  \"password\": \"1234\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{clients_url}}/clients",
+              "host": [
+                "{{clients_url}}"
+              ],
+              "path": [
+                "clients"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "02 - Create Client Marianela Montalvo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Marianela Montalvo\",\n  \"gender\": \"Femenino\",\n  \"age\": 28,\n  \"identification\": \"1002345678\",\n  \"address\": \"Amazonas y NNUU\",\n  \"phone\": \"097548965\",\n  \"clientId\": \"marianelamont\",\n  \"password\": \"5678\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{clients_url}}/clientes",
+              "host": [
+                "{{clients_url}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "03 - Create Client Juan Osorio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Juan Osorio\",\n  \"gender\": \"Masculino\",\n  \"age\": 42,\n  \"identification\": \"1003456789\",\n  \"address\": \"13 de junio y equinoccial\",\n  \"phone\": \"098874587\",\n  \"clientId\": \"juanosorio\",\n  \"password\": \"1245\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{clients_url}}/clientes",
+              "host": [
+                "{{clients_url}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "04 - Get All Clients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{clients_url}}/clients",
+              "host": [
+                "{{clients_url}}"
+              ],
+              "path": [
+                "clients"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "05 - Get Client by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{clients_url}}/clients/3",
+              "host": [
+                "{{clients_url}}"
+              ],
+              "path": [
+                "clients",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "06 - Get Client by ClientId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{clients_url}}/clients/clientId/joselema",
+              "host": [
+                "{{clients_url}}"
+              ],
+              "path": [
+                "clients",
+                "clientId",
+                "joselema"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "07 - Update Client",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jose Lema Updated\",\n  \"gender\": \"Masculino\",\n  \"age\": 36,\n  \"identification\": \"1001234567\",\n  \"address\": \"Nueva Direccion 123\",\n  \"phone\": \"098254785\",\n  \"clientId\": \"joselema\",\n  \"password\": \"1234\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{clients_url}}/clients/1",
+              "host": [
+                "{{clients_url}}"
+              ],
+              "path": [
+                "clients",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "08 - Delete Client",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{clients_url}}/clients/3",
+              "host": [
+                "{{clients_url}}"
+              ],
+              "path": [
+                "clients",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "09 - Create Client (Validation Error)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"\",\n  \"gender\": \"Masculino\",\n  \"age\": -1,\n  \"identification\": \"\",\n  \"address\": \"\",\n  \"phone\": \"\",\n  \"clientId\": \"\",\n  \"password\": \"12\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{clients_url}}/clients",
+              "host": [
+                "{{clients_url}}"
+              ],
+              "path": [
+                "clients"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "10 - Create Client (Duplicate clientId Error)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Duplicado Test\",\n  \"gender\": \"Masculino\",\n  \"age\": 30,\n  \"identification\": \"9999999999\",\n  \"address\": \"Calle Test\",\n  \"phone\": \"099999999\",\n  \"clientId\": \"joselema\",\n  \"password\": \"1234\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{clients_url}}/clients",
+              "host": [
+                "{{clients_url}}"
+              ],
+              "path": [
+                "clients"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ms-accounts - Cuentas",
+      "item": [
+        {
+          "name": "01 - Create Account Jose Lema (Ahorros 2000)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"478758\",\n  \"accountType\": \"SAVINGS\",\n  \"initialBalance\": 2000.00,\n  \"status\": true,\n  \"clientId\": \"joselema\"\n}"
+            },
+            "url": {
+              "raw": "{{accounts_url}}/accounts",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "02 - Create Account Marianela (Corriente 100)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"225487\",\n  \"accountType\": \"CHECKING\",\n  \"initialBalance\": 100.00,\n  \"status\": true,\n  \"clientId\": \"marianelamont\"\n}"
+            },
+            "url": {
+              "raw": "{{accounts_url}}/accounts",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "03 - Create Account Juan Osorio (Ahorros 0)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"495878\",\n  \"accountType\": \"SAVINGS\",\n  \"initialBalance\": 0.00,\n  \"status\": true,\n  \"clientId\": \"juanosorio\"\n}"
+            },
+            "url": {
+              "raw": "{{accounts_url}}/accounts",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "04 - Create Account Marianela (Ahorros 540)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"496825\",\n  \"accountType\": \"SAVINGS\",\n  \"initialBalance\": 540.00,\n  \"status\": true,\n  \"clientId\": \"marianelamont\"\n}"
+            },
+            "url": {
+              "raw": "{{accounts_url}}/accounts",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "05 - Create Account Jose Lema (Corriente 1000)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"585545\",\n  \"accountType\": \"CHECKING\",\n  \"initialBalance\": 1000.00,\n  \"status\": true,\n  \"clientId\": \"joselema\"\n}"
+            },
+            "url": {
+              "raw": "{{accounts_url}}/accounts",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "06 - Get All Accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{accounts_url}}/accounts",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "07 - Get Account by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{accounts_url}}/accounts/1",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "accounts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "08 - Get Account by Number",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{accounts_url}}/accounts/number/478758",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "accounts",
+                "number",
+                "478758"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "09 - Update Account",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"478758\",\n  \"accountType\": \"SAVINGS\",\n  \"initialBalance\": 2000.00,\n  \"status\": true,\n  \"clientId\": \"joselema\"\n}"
+            },
+            "url": {
+              "raw": "{{accounts_url}}/accounts/1",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "accounts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ms-accounts - Movimientos",
+      "item": [
+        {
+          "name": "01 - Retiro 575 (Cuenta 478758 - Jose Lema)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"478758\",\n  \"value\": -575.00\n}"
+            },
+            "url": {
+              "raw": "{{accounts_url}}/movements",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "02 - Deposito 600 (Cuenta 225487 - Marianela)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"225487\",\n  \"value\": 600.00\n}"
+            },
+            "url": {
+              "raw": "{{accounts_url}}/movements",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "03 - Deposito 150 (Cuenta 495878 - Juan Osorio)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"495878\",\n  \"value\": 150.00\n}"
+            },
+            "url": {
+              "raw": "{{accounts_url}}/movements",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "04 - Retiro 540 (Cuenta 496825 - Marianela)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"496825\",\n  \"value\": -540.00\n}"
+            },
+            "url": {
+              "raw": "{{accounts_url}}/movements",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "05 - F3 Saldo No Disponible (Cuenta 495878)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"495878\",\n  \"value\": -9999.00\n}"
+            },
+            "url": {
+              "raw": "{{accounts_url}}/movements",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "06 - Get All Movements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{accounts_url}}/movements",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "07 - Get Movements by Account",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{accounts_url}}/movements/account/478758",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "movements",
+                "account",
+                "478758"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ms-accounts - Reportes (F4)",
+      "item": [
+        {
+          "name": "01 - Reporte Marianela (Feb 2022)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{accounts_url}}/reports?date=2022-02-01,2022-02-28&client=marianelamont",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "reports"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2022-02-01,2022-02-28"
+                },
+                {
+                  "key": "client",
+                  "value": "marianelamont"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "02 - Reporte Jose Lema (Feb 2022)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{accounts_url}}/reports?date=2022-02-01,2022-02-28&client=joselema",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "reports"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2022-02-01,2022-02-28"
+                },
+                {
+                  "key": "client",
+                  "value": "joselema"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "03 - Reporte Juan Osorio (Feb 2022)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{accounts_url}}/reports?date=2022-02-01,2022-02-28&client=juanosorio",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "reports"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2022-02-01,2022-02-28"
+                },
+                {
+                  "key": "client",
+                  "value": "juanosorio"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "04 - Reporte Cliente No Existe (Error)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{accounts_url}}/reports?date=2022-02-01,2022-02-28&client=noexiste",
+              "host": [
+                "{{accounts_url}}"
+              ],
+              "path": [
+                "reports"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2022-02-01,2022-02-28"
+                },
+                {
+                  "key": "client",
+                  "value": "noexiste"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "clients_url",
+      "value": "http://localhost:8081/api"
+    },
+    {
+      "key": "accounts_url",
+      "value": "http://localhost:8082/api"
+    }
+  ]
+}
