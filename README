@@ -1,0 +1,158 @@
+#Demo Microservices
+Sistema demo basado en arquitectura de microservicios desarrollado con:
+-Spring Boot 3.2.5
+-Apache Kafka
+-PostgreSQL
+-desplegado en Docker(F7 Despliegue de la solucion en contenedores)
+
+
+#Arquitectura
+
+   ms-clients    --Kafka-->   ms-accounts
+   Puerto 8081                Puerto 8082
+        │                           │
+        v                           v
+  PostgreSQL 5432              PostgreSQL 5433
+   (client_db)                 (account_db)
+
+
+#Microservicios
+msclients:  Gestion de Personas y Clientes. Puerto: 8081
+msaccounts: Gestion de Cuentas, Movimientos y Reportes. Puertos: 8082
+
+#Comunicacion asincrona
+-Kafka topic: 'client.created'
+-Cuando se crea un cliente en msclients se publica un evento que msaccounts consume y guarda una referencia local (client_ref) permitiendo que el reporte opere sin depender de msclients en runtime
+
+
+#Tecnologias
+- Java 21
+- Spring Boot 4.0.3
+- Spring Data JPA
+- Spring Security (BCrypt)
+- Apache Kafka
+- PostgreSQL 16
+- MapStruct
+- Lombok
+- Docker / Docker Compose
+- JUnit 5 + Mockito
+- Karate DSL
+
+
+
+#Despliegue
+#Prerrequisitos
+-Docker Desktop (https://www.docker.com/products/docker-desktop/) instalado y corriendo
+-Puertos disponibles: 8080, 8081, 8082, 5432, 5433, 9092, 2181
+
+#1. Clonar el repositorio
+bash:
+cd ms-demo
+git clone <URL_DEL_REPOSITORIO>
+
+#2. Levantar con Docker Compose
+bash:
+docker compose up --build -d
+
+Este comando:
+- Compila ambos microservicios desde el codigo fuente
+- Levanta PostgreSQL con las tablas y datos iniciales
+- Levanta Kafka + Zookeeper
+- Levanta ambos microservicios
+
+#3. Verificar que los contenedores esten corriendo
+bash:
+docker ps
+
+Deberia haber 7 contenedores con status Up o healthy:
+
+ms-clients         http://localhost:8081/api
+ms-accounts        http://localhost:8082/api
+kafka-ui           http://localhost:8080
+kafka              localhost:9092
+postgres-client    localhost:5432
+postgres-account   localhost:5433
+zookeeper          localhost:2181
+
+
+#4. Verificar logs
+bash:
+docker logs ms-clients
+docker logs ms-accounts
+
+
+#API Endpoints
+#ms-clients (http://localhost:8081/api)
+POST   :/clients       | Crear cliente
+GET    :/clients       | Listar todos los clientes
+GET    :/clients/{id}  | Obtener cliente por id
+GET    :/clients/clientId/{clientId} | Obtener cliente por clientId
+PUT    :/clients/{id} | Actualizar cliente
+DELETE :/clients/{id} | Eliminar cliente
+
+#ms-accounts (http://localhost:8082/api)(F1 Generacion de CRUD, F2 F3 Registro de movimientos)
+POST  :/cuentas      | Crear cuenta
+GET   :/cuentas      | Listar todas las cuentas
+GET   :/cuentas/{id} | Obtener cuenta por ID
+GET   :/cuentas/number/{accountNumber} | Obtener cuenta por número
+PUT   :/cuentas/{id} | Actualizar cuenta
+POST  :/movimientos  | Registrar movimiento
+GET   :/movimientos  | Listar todos los movimientos
+GET   :/movimientos/account/{accountNumber} | Movimientos por cuenta
+GET   :/reportes?fecha=yyyy-MM-dd,yyyy-MM-dd&cliente={clientId} | Reporte estado de cuenta
+
+#Coleccion Postman
+Importa el archivo 'DemoMicroservicesAPI.postman_collection.json' en Postman para probar todos los endpoints.
+
+Orden de ejecucion recomendado:
+1. Crear clientes (ms-clients)
+2. Esperar 3 segundos para propagacin Kafka
+3. Crear cuentas (ms-accounts)
+4. Registrar movimientos
+5. Consultar reportes(F4 Generar un reporte de "Estado de cuenta" especificando un rango de fechas y cliente)
+
+#Pruebas (aqui solo ejecutar las unitarias o Karate)
+#Pruebas de integracion (Karate)(F6 Pruebas de integracion)
+bash:
+cd msclients
+.\mvnw test -Dtest=KarateRunner
+
+cd msaccounts
+.\mvnw test -Dtest=KarateRunner
+
+
+#Pruebas unitarias(F5 Implementar 1 prueba unitaria para la entidad de dominio Cliente*)
+# ms-clients
+bash:
+cd msclients
+.\mvnw test
+
+# ms-accounts
+bash:
+cd msaccounts
+.\mvnw test
+
+
+
+#Base de datos
+Los scripts de inicializacion se ejecutan automaticamente al levantar Docker:
+
+init-client.sql  :client_db, Tabla client ademas 3 clientes iniciales
+init-account.sql :account_db, Tablas client_ref, account, movement ademas datos iniciales
+
+-Los datos persisten en volumenes Docker. Para reiniciar desde cero ejecute: docker compose down -v
+(Esto porque me parece que les seria mas sencillo hacer sus pruebas, en un proyecto real serian scripts para ejecutar en BD)
+
+
+#Kafka UI
+-Accede a: http://localhost:8080
+para monitorear topics y mensajes en tiempo real
+
+-Al crear un cliente desde msclients se vera el evento 'client.created' aparecer en el topic
+
+
+#Consideraciones de escalabilidad
+-Resiliencia: Kafka desacopla los microservicios, si msaccounts cae, los eventos quedan en el topic y se procesan al volver
+-Escalabilidad: Multiples instancias de msaccounts pueden consumir del mismo topic en paralelo
+-Rendimiento: Indices compuestos en movement(account_id, date_movement) optimizan el reporte F4
+-Idempotencia: El consumer de Kafka verifica duplicados antes de guardar client_ref
