@@ -48,7 +48,7 @@ msaccounts: Gestion de Cuentas, Movimientos y Reportes. Puertos: 8082
 #1. Clonar el repositorio
 bash:
 cd ms-demo
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/JoelPiluy/Ms-demo.git
 
 #2. Levantar con Docker Compose
 bash:
