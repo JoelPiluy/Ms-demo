@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "afa5e24a-8967-49d1-b824-dcd0bf841dea",
-    "name": "Bank Microservices API",
+    "name": "DemoMicroservices API",
     "description": "Colección de pruebas para ms-clients (8081) y ms-accounts (8082)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "28584036"
